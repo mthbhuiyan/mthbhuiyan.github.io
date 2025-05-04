@@ -66,18 +66,32 @@ body.dark-mode {
 
 .fixed-nav .container {
     display: flex; /* Use flexbox for items inside container */
-    justify-content: space-between; /* Space out nav links and toggle */
+    justify-content: space-between; /* Space out nav items */
     align-items: center; /* Vertically align items */
     width: 100%; /* Take full width of the container */
 }
 
 /* Desktop Navigation Links */
+/* By default, nav-links is a flex container on desktop */
 .fixed-nav .nav-links {
-    display: flex; /* Use flexbox for links and toggle */
+    display: flex;
     align-items: center;
     width: 100%; /* Take full width on desktop */
     justify-content: center; /* Center links on desktop */
+    /* Ensure mobile styles are overridden on desktop */
+    position: static;
+    top: auto;
+    left: auto;
+    transform: translateX(0);
+    visibility: visible;
+    height: auto;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    overflow-y: visible;
+    flex-direction: row; /* Ensure horizontal layout on desktop */
 }
+
 
 .fixed-nav ul {
     list-style: none;
@@ -116,9 +130,8 @@ body.dark-mode {
     cursor: pointer;
     font-size: 1.2em; /* Adjust size for nav bar */
     margin-left: 20px; /* Add space between links and toggle */
-    position: static; /* Remove absolute positioning */
-    transform: none; /* Remove transform */
     transition: color 0.3s ease;
+    flex-shrink: 0; /* Prevent the toggle button from shrinking */
 }
 
 .fixed-nav #theme-toggle:hover {
@@ -304,7 +317,7 @@ footer p {
     .fixed-nav .nav-links {
         position: fixed;
         top: 60px; /* Position below the fixed nav header */
-        left: -250px; /* Start off-screen to the left */
+        left: 0; /* Position at the left edge */
         width: 250px; /* Width of the mobile menu */
         height: calc(100vh - 60px); /* Take full height below the nav */
         background-color: var(--nav-mobile-background);
@@ -312,13 +325,17 @@ footer p {
         align-items: flex-start; /* Align links to the left */
         padding: 20px;
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        transition: left 0.3s ease; /* Smooth slide-in transition */
+        transition: transform 0.3s ease, visibility 0.3s ease; /* Smooth slide-in transition */
         overflow-y: auto; /* Add scroll if menu content is long */
+        transform: translateX(-100%); /* Hide the menu by translating it left */
+        visibility: hidden; /* Hide the menu from screen readers and interactions */
+        justify-content: flex-start; /* Align content to the top */
     }
 
     /* When menu-open class is added to body */
     body.menu-open .fixed-nav .nav-links {
-        left: 0; /* Slide the menu into view */
+        transform: translateX(0); /* Slide the menu into view */
+        visibility: visible; /* Make the menu visible */
     }
 
     .fixed-nav ul {
@@ -396,6 +413,6 @@ footer p {
     }
      .fixed-nav .nav-links {
         width: 200px; /* Adjust mobile menu width for very small screens */
-        left: -200px; /* Adjust off-screen position */
+        transform: translateX(-100%); /* Hide the menu by translating it left */
     }
 }
