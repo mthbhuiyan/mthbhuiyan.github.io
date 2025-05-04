@@ -13,11 +13,11 @@ body {
 :root {
     --background-color: #ffffff; /* Light mode background */
     --text-color: #333; /* Light mode text color */
-    --primary-color: #007bff; /* Accent color */
+    --primary-color: #007bff; /* Accent color (blue) */
     --secondary-background: #f4f4f4; /* Light mode card background */
     --border-color: #ddd; /* Light mode border color */
-    --header-background: #333; /* Light mode header background */
-    --header-text: #ffffff; /* Light mode header text */
+    --header-background-light: #e9ecef; /* Light mode header background */
+    --header-text-light: #333; /* Light mode header text */
     --nav-background: #ffffff; /* Light mode nav background */
     --nav-text: #333; /* Light mode nav text */
     --nav-border: #ddd; /* Light mode nav border */
@@ -28,8 +28,8 @@ body.dark-mode {
     --text-color: #f4f4f4; /* Dark mode text color */
     --secondary-background: #333; /* Dark mode card background */
     --border-color: #555; /* Dark mode border color */
-    --header-background: #f4f4f4; /* Dark mode header background */
-    --header-text: #1e1e1e; /* Dark mode header text */
+    --header-background-dark: #2b2b2b; /* Dark mode header background */
+    --header-text-dark: #f4f4f4; /* Dark mode header text */
     --nav-background: #333; /* Dark mode nav background */
     --nav-text: #f4f4f4; /* Dark mode nav text */
     --nav-border: #555; /* Dark mode nav border */
@@ -118,17 +118,25 @@ body.dark-mode {
 
 /* Header Styling */
 header {
-    background-color: var(--header-background);
-    color: var(--header-text);
+    background-color: var(--header-background-light); /* Default light mode header background */
+    color: var(--header-text-light); /* Default light mode header text */
     padding: 40px 0;
     text-align: center;
     margin-bottom: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
+
+body.dark-mode header {
+    background-color: var(--header-background-dark); /* Dark mode header background */
+    color: var(--header-text-dark); /* Dark mode header text */
+}
+
 
 header h1 {
     margin: 0;
     font-size: 2.5em;
     font-weight: 700;
+    color: var(--primary-color); /* Apply blue accent to heading */
 }
 
 header .subtitle {
@@ -150,6 +158,17 @@ header .subtitle {
     margin-right: 8px;
     color: var(--primary-color); /* Use accent color for icons */
 }
+
+/* Profile Photo Styling */
+.profile-photo {
+    width: 120px; /* Adjust size as needed */
+    height: 120px; /* Adjust size as needed */
+    border-radius: 50%; /* Make it round */
+    margin-bottom: 15px;
+    border: 3px solid var(--primary-color); /* Add a border with accent color */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
 
 /* Main Content Area */
 main {
@@ -286,10 +305,19 @@ footer p {
     .card h3 {
         font-size: 1.1em;
     }
+
+    .profile-photo {
+        width: 100px; /* Adjust size for smaller screens */
+        height: 100px; /* Adjust size for smaller screens */
+    }
 }
 
 @media (max-width: 480px) {
     .fixed-nav li {
         margin: 5px 5px; /* Further reduce margin on very small screens */
+    }
+    .profile-photo {
+        width: 80px; /* Adjust size for very small screens */
+        height: 80px; /* Adjust size for very small screens */
     }
 }
