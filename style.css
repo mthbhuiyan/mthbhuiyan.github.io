@@ -16,8 +16,8 @@ body {
     --primary-color: #007bff; /* Accent color (blue) */
     --secondary-background: #f4f4f4; /* Light mode card background */
     --border-color: #ddd; /* Light mode border color */
-    --header-background-light: #e9ecef; /* Light mode header background */
-    --header-text-light: #333; /* Light mode header text */
+    --header-background-light: #e0f2ff; /* Light mode header background (light blue) */
+    --header-text-light: #1a2b3c; /* Light mode header text (darker text for contrast) */
     --nav-background: #ffffff; /* Light mode nav background */
     --nav-text: #333; /* Light mode nav text */
     --nav-border: #ddd; /* Light mode nav border */
@@ -28,8 +28,8 @@ body.dark-mode {
     --text-color: #f4f4f4; /* Dark mode text color */
     --secondary-background: #333; /* Dark mode card background */
     --border-color: #555; /* Dark mode border color */
-    --header-background-dark: #2b2b2b; /* Dark mode header background */
-    --header-text-dark: #f4f4f4; /* Dark mode header text */
+    --header-background-dark: #003366; /* Dark mode header background (dark blue) */
+    --header-text-dark: #e0f2ff; /* Dark mode header text (lighter text for contrast) */
     --nav-background: #333; /* Dark mode nav background */
     --nav-text: #f4f4f4; /* Dark mode nav text */
     --nav-border: #555; /* Dark mode nav border */
