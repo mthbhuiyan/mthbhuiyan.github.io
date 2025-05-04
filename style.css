@@ -6,6 +6,7 @@ body {
     color: var(--text-color); /* Use CSS variable for text color */
     background-color: var(--background-color); /* Use CSS variable for background */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+    padding-top: 60px; /* Add padding to the top of the body equal to the nav height */
 }
 
 /* CSS Variables for Theme */
@@ -17,6 +18,9 @@ body {
     --border-color: #ddd; /* Light mode border color */
     --header-background: #333; /* Light mode header background */
     --header-text: #ffffff; /* Light mode header text */
+    --nav-background: #ffffff; /* Light mode nav background */
+    --nav-text: #333; /* Light mode nav text */
+    --nav-border: #ddd; /* Light mode nav border */
 }
 
 body.dark-mode {
@@ -26,6 +30,9 @@ body.dark-mode {
     --border-color: #555; /* Dark mode border color */
     --header-background: #f4f4f4; /* Dark mode header background */
     --header-text: #1e1e1e; /* Dark mode header text */
+    --nav-background: #333; /* Dark mode nav background */
+    --nav-text: #f4f4f4; /* Dark mode nav text */
+    --nav-border: #555; /* Dark mode nav border */
 }
 
 
@@ -35,6 +42,48 @@ body.dark-mode {
     margin: 0 auto;
     padding: 0 20px; /* Add some padding on smaller screens */
 }
+
+/* Fixed Navigation Bar Styling */
+.fixed-nav {
+    position: fixed; /* Make the nav bar fixed */
+    top: 0; /* Position at the top */
+    left: 0;
+    width: 100%; /* Full width */
+    background-color: var(--nav-background);
+    color: var(--nav-text);
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it stays on top */
+    border-bottom: 1px solid var(--nav-border);
+}
+
+.fixed-nav .container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: center; /* Center the links */
+    flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+}
+
+.fixed-nav .container li {
+    margin: 0 15px; /* Spacing between links */
+    padding: 0; /* Remove padding from list items */
+    border-bottom: none; /* Remove border from list items */
+}
+
+.fixed-nav .container a {
+    color: var(--nav-text);
+    text-decoration: none;
+    font-size: 0.9em; /* Make nav links smaller */
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.fixed-nav .container a:hover {
+    color: var(--primary-color);
+}
+
 
 /* Header Styling */
 header {
@@ -187,6 +236,20 @@ footer p {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        padding-top: 100px; /* Increase padding for wrapped nav on small screens */
+    }
+
+     .fixed-nav .container ul {
+        flex-direction: column; /* Stack nav links vertically on small screens */
+        align-items: center; /* Center stacked links */
+    }
+
+    .fixed-nav .container li {
+        margin: 5px 0; /* Adjust margin for stacked links */
+    }
+
+
     header {
         padding: 30px 0;
     }
