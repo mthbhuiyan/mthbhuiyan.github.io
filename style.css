@@ -7,6 +7,7 @@ body {
     background-color: var(--background-color); /* Use CSS variable for background */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
     padding-top: 60px; /* Add padding to the top of the body equal to the nav height */
+    overflow-x: hidden; /* Prevent horizontal scroll when mobile menu is open */
 }
 
 /* CSS Variables for Theme */
@@ -21,6 +22,7 @@ body {
     --nav-background: #ffffff; /* Light mode nav background */
     --nav-text: #333; /* Light mode nav text */
     --nav-border: #ddd; /* Light mode nav border */
+    --nav-mobile-background: #f8f9fa; /* Light mode mobile menu background */
 }
 
 body.dark-mode {
@@ -33,6 +35,7 @@ body.dark-mode {
     --nav-background: #333; /* Dark mode nav background */
     --nav-text: #f4f4f4; /* Dark mode nav text */
     --nav-border: #555; /* Dark mode nav border */
+    --nav-mobile-background: #444; /* Dark mode mobile menu background */
 }
 
 
@@ -68,6 +71,13 @@ body.dark-mode {
     width: 100%; /* Take full width of the container */
 }
 
+/* Desktop Navigation Links */
+.fixed-nav .nav-links {
+    display: flex; /* Use flexbox for links and toggle */
+    align-items: center;
+    width: 100%; /* Take full width on desktop */
+    justify-content: center; /* Center links on desktop */
+}
 
 .fixed-nav ul {
     list-style: none;
@@ -113,6 +123,18 @@ body.dark-mode {
 
 .fixed-nav #theme-toggle:hover {
     color: var(--primary-color);
+}
+
+/* Mobile Menu Toggle Button (Hidden on Desktop) */
+.menu-toggle {
+    display: none; /* Hide by default on desktop */
+    background: none;
+    border: none;
+    color: var(--nav-text);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 1001; /* Ensure it's above the mobile menu */
 }
 
 
@@ -165,7 +187,7 @@ header .subtitle {
     height: 150px; /* Fixed height */
     border-radius: 50%; /* Make it round */
     margin-bottom: 15px;
-    border: 2px solid var(--secondary-background); /* Add a border with accent color */
+    border: 3px solid var(--primary-color); /* Add a border with accent color */
     object-fit: cover; /* Ensure the image covers the area without distortion */
 }
 
@@ -242,7 +264,6 @@ footer {
     margin-top: 40px;
     border-top: 1px solid var(--border-color);
     color: var(--text-color);
-    position: relative; /* Needed for absolute positioning of the toggle button */
 }
 
 footer p {
@@ -254,26 +275,62 @@ footer p {
 /* Responsive Design */
 @media (max-width: 768px) {
      body {
-        padding-top: 100px; /* Increase padding for wrapped nav on small screens */
+        padding-top: 60px; /* Keep padding consistent with nav height */
     }
 
     .fixed-nav .container {
-        flex-direction: column; /* Stack nav items vertically */
-        align-items: center; /* Center items */
+        flex-direction: row; /* Keep items in a row in the nav bar */
+        justify-content: space-between; /* Space out menu toggle and content */
     }
 
-     .fixed-nav ul {
-        justify-content: center; /* Center links when stacked */
-        margin-bottom: 10px; /* Add space below links */
+    .fixed-nav .nav-links {
+        /* Mobile menu styling */
+        position: fixed;
+        top: 60px; /* Position below the fixed nav header */
+        left: -250px; /* Start off-screen to the left */
+        width: 250px; /* Width of the mobile menu */
+        height: calc(100vh - 60px); /* Take full height below the nav */
+        background-color: var(--nav-mobile-background);
+        flex-direction: column; /* Stack links vertically */
+        align-items: flex-start; /* Align links to the left */
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease; /* Smooth slide-in transition */
+        overflow-y: auto; /* Add scroll if menu content is long */
+    }
+
+    /* When menu-open class is added to body */
+    body.menu-open .fixed-nav .nav-links {
+        left: 0; /* Slide the menu into view */
+    }
+
+    .fixed-nav ul {
+        flex-direction: column; /* Stack links vertically */
+        align-items: flex-start; /* Align links to the left */
+        width: 100%; /* Take full width of the mobile menu */
+        margin-bottom: 20px; /* Add space below links before toggle */
     }
 
     .fixed-nav li {
-        margin: 5px 10px; /* Adjust margin for stacked links */
+        margin: 10px 0; /* Adjust margin for stacked links */
+        width: 100%; /* Make list items take full width */
     }
 
+    .fixed-nav a {
+        font-size: 1.1em; /* Slightly larger font for mobile links */
+    }
+
+    /* Show the mobile menu toggle button */
+    .menu-toggle {
+        display: block;
+        color: var(--nav-text); /* Match nav text color */
+    }
+
+    /* Adjust theme toggle position in mobile menu */
     .fixed-nav #theme-toggle {
-        margin-left: 0; /* Remove left margin when stacked */
+        margin-left: 0;
         margin-top: 10px; /* Add space above toggle */
+        align-self: flex-start; /* Align toggle to the left */
     }
 
 
@@ -314,10 +371,14 @@ footer p {
 
 @media (max-width: 480px) {
     .fixed-nav li {
-        margin: 5px 5px; /* Further reduce margin on very small screens */
+        margin: 8px 0; /* Adjust margin for stacked links on very small screens */
     }
     .profile-photo {
         width: 80px; /* Adjust size for very small screens */
         height: 80px; /* Adjust size for very small screens */
+    }
+     .fixed-nav .nav-links {
+        width: 200px; /* Adjust mobile menu width for very small screens */
+        left: -200px; /* Adjust off-screen position */
     }
 }
