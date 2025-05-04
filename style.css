@@ -55,32 +55,63 @@ body.dark-mode {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000; /* Ensure it stays on top */
     border-bottom: 1px solid var(--nav-border);
+    display: flex; /* Use flexbox for nav content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 40px; /* Ensure a minimum height */
 }
 
-.fixed-nav .container ul {
+.fixed-nav .container {
+    display: flex; /* Use flexbox for items inside container */
+    justify-content: space-between; /* Space out nav links and toggle */
+    align-items: center; /* Vertically align items */
+    width: 100%; /* Take full width of the container */
+}
+
+
+.fixed-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex; /* Use flexbox for horizontal layout */
-    justify-content: center; /* Center the links */
     flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+    justify-content: center; /* Center the links */
+    flex-grow: 1; /* Allow ul to take up available space */
 }
 
-.fixed-nav .container li {
-    margin: 0 15px; /* Spacing between links */
+.fixed-nav li {
+    margin: 0 10px; /* Spacing between links */
     padding: 0; /* Remove padding from list items */
     border-bottom: none; /* Remove border from list items */
 }
 
-.fixed-nav .container a {
+.fixed-nav a {
     color: var(--nav-text);
     text-decoration: none;
     font-size: 0.9em; /* Make nav links smaller */
     font-weight: 600;
     transition: color 0.3s ease;
+    white-space: nowrap; /* Prevent links from breaking */
 }
 
-.fixed-nav .container a:hover {
+.fixed-nav a:hover {
+    color: var(--primary-color);
+}
+
+/* Theme Toggle Button in Nav */
+.fixed-nav #theme-toggle {
+    background: none;
+    border: none;
+    color: var(--nav-text); /* Use nav text color */
+    cursor: pointer;
+    font-size: 1.2em; /* Adjust size for nav bar */
+    margin-left: 20px; /* Add space between links and toggle */
+    position: static; /* Remove absolute positioning */
+    transform: none; /* Remove transform */
+    transition: color 0.3s ease;
+}
+
+.fixed-nav #theme-toggle:hover {
     color: var(--primary-color);
 }
 
@@ -181,23 +212,8 @@ main {
     text-decoration: underline;
 }
 
-/* Skills Section Specific Styling */
-.skills-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
-    gap: 20px;
-}
-
-.skills-list div h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    font-weight: 700;
-}
-
-.skills-list div p {
-    margin: 0;
-}
+/* Skills Section Specific Styling (Removed) */
+/* Courses Section Specific Styling (Removed) */
 
 
 /* Footer Styling */
@@ -215,38 +231,30 @@ footer p {
     font-size: 0.9em;
 }
 
-/* Theme Toggle Button */
-#theme-toggle {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 1.5em;
-    position: absolute; /* Position relative to footer */
-    top: 50%; /* Center vertically */
-    right: 20px; /* Position from the right */
-    transform: translateY(-50%); /* Adjust vertical centering */
-    transition: color 0.3s ease;
-}
-
-#theme-toggle:hover {
-    color: var(--primary-color);
-}
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    body {
+     body {
         padding-top: 100px; /* Increase padding for wrapped nav on small screens */
     }
 
-     .fixed-nav .container ul {
-        flex-direction: column; /* Stack nav links vertically on small screens */
-        align-items: center; /* Center stacked links */
+    .fixed-nav .container {
+        flex-direction: column; /* Stack nav items vertically */
+        align-items: center; /* Center items */
     }
 
-    .fixed-nav .container li {
-        margin: 5px 0; /* Adjust margin for stacked links */
+     .fixed-nav ul {
+        justify-content: center; /* Center links when stacked */
+        margin-bottom: 10px; /* Add space below links */
+    }
+
+    .fixed-nav li {
+        margin: 5px 10px; /* Adjust margin for stacked links */
+    }
+
+    .fixed-nav #theme-toggle {
+        margin-left: 0; /* Remove left margin when stacked */
+        margin-top: 10px; /* Add space above toggle */
     }
 
 
@@ -278,13 +286,10 @@ footer p {
     .card h3 {
         font-size: 1.1em;
     }
+}
 
-    .skills-list {
-        grid-template-columns: 1fr; /* Stack skills on small screens */
-    }
-
-    #theme-toggle {
-        right: 10px; /* Adjust position for smaller screens */
-        font-size: 1.3em;
+@media (max-width: 480px) {
+    .fixed-nav li {
+        margin: 5px 5px; /* Further reduce margin on very small screens */
     }
 }
