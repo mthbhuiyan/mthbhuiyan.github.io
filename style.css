@@ -343,6 +343,8 @@ footer p {
         align-items: flex-start; /* Align links to the left */
         width: 100%; /* Take full width of the mobile menu */
         margin-bottom: 20px; /* Add space below links before toggle */
+        padding-top: 0; /* Ensure no extra padding at the top of the list */
+        margin-top: 0; /* Ensure no extra margin at the top of the list */
     }
 
     .fixed-nav li {
