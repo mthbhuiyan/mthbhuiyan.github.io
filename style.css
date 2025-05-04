@@ -253,6 +253,23 @@ main {
     text-decoration: underline;
 }
 
+/* Publications Specific Styling */
+.publication-title {
+    font-size: 1.1em; /* Slightly larger font for title */
+    font-weight: 600; /* Make title bold */
+    text-decoration: underline; /* Underline the title */
+    margin-bottom: 5px;
+}
+
+.publication-authors {
+    margin-bottom: 5px;
+}
+
+.publication-venue {
+    font-style: italic; /* Italicize the venue */
+}
+
+
 /* Skills Section Specific Styling (Removed) */
 /* Courses Section Specific Styling (Removed) */
 
