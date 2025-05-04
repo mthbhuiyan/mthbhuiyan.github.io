@@ -300,8 +300,8 @@ footer p {
         justify-content: space-between; /* Space out menu toggle and content */
     }
 
+    /* Mobile menu styling */
     .fixed-nav .nav-links {
-        /* Mobile menu styling */
         position: fixed;
         top: 60px; /* Position below the fixed nav header */
         left: -250px; /* Start off-screen to the left */
