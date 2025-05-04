@@ -161,8 +161,8 @@ header .subtitle {
 
 /* Profile Photo Styling */
 .profile-photo {
-    width: 120px; /* Adjust size as needed */
-    height: 120px; /* Adjust size as needed */
+    width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height */
     border-radius: 50%; /* Make it round */
     margin-bottom: 15px;
     border: 3px solid var(--primary-color); /* Add a border with accent color */
