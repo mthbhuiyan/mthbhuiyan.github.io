@@ -31,7 +31,7 @@ body.dark-mode {
     --secondary-background: #333; /* Dark mode card background */
     --border-color: #555; /* Dark mode border color */
     --header-background-dark: #003366; /* Dark mode header background (dark blue) */
-    --header-text-dark: #e0f2ff; /* Dark mode header text (lighter text for contrast) */
+    --header-text-dark: #a0cfff; /* Dark mode header text (brighter lighter blue) */
     --nav-background: #333; /* Dark mode nav background */
     --nav-text: #f4f4f4; /* Dark mode nav text */
     --nav-border: #555; /* Dark mode nav border */
@@ -180,19 +180,24 @@ header .subtitle {
     font-weight: 400;
 }
 
+/* Contact Info Styling */
 .contact-info {
     margin-top: 20px;
-    font-size: 1em;
+    font-size: 1.5em; /* Increase icon size */
+    display: flex; /* Use flexbox to align icons */
+    justify-content: center; /* Center icons horizontally */
+    gap: 20px; /* Add space between icons */
 }
 
-.contact-info p {
-    margin: 5px 0;
+.contact-info a {
+    color: var(--text-color); /* Use text color for icons */
+    transition: color 0.3s ease;
 }
 
-.contact-info i {
-    margin-right: 8px;
-    color: var(--primary-color); /* Use accent color for icons */
+.contact-info a:hover {
+    color: var(--primary-color); /* Change color on hover */
 }
+
 
 /* Profile Photo Styling */
 .profile-photo {
@@ -383,8 +388,10 @@ footer p {
     }
 
     .contact-info {
-        font-size: 0.9em;
+        font-size: 1.2em; /* Slightly smaller icons on mobile */
+        gap: 15px; /* Adjust gap on mobile */
     }
+
 
     .card {
         padding: 15px;
@@ -416,5 +423,9 @@ footer p {
      .fixed-nav .nav-links {
         width: 200px; /* Adjust mobile menu width for very small screens */
         transform: translateX(-100%); /* Hide the menu by translating it left */
+    }
+    .contact-info {
+        font-size: 1em; /* Further decrease icon size on very small mobile */
+        gap: 10px; /* Further decrease gap */
     }
 }
