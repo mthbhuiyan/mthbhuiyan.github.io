@@ -1,53 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const root = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const icon = themeToggle.querySelector('i');
-    const menuToggle = document.querySelector('.menu-toggle'); // Select the menu toggle button
-    const navLinks = document.querySelector('.nav-links'); // Select the container for links
+    const themeIcon = themeToggle.querySelector('i');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.add(savedTheme);
-        if (savedTheme === 'dark-mode') {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-             icon.classList.remove('fa-sun');
-             icon.classList.add('fa-moon');
-        }
-    } else {
-        // Default to light mode if no preference is saved
-        body.classList.remove('dark-mode');
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-    }
+    // ----- Theme -----
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const isDark = () => root.dataset.theme
+        ? root.dataset.theme === 'dark'
+        : systemDark.matches;
+
+    const syncIcon = () => {
+        themeIcon.className = isDark() ? 'fas fa-sun' : 'fas fa-moon';
+    };
 
     themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-
-        // Update icon based on current mode
-        if (body.classList.contains('dark-mode')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'dark-mode'); // Save preference
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-            localStorage.setItem('theme', 'light-mode'); // Save preference
-        }
+        const next = isDark() ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        syncIcon();
     });
+    systemDark.addEventListener('change', syncIcon);
+    syncIcon();
 
-    // Mobile menu toggle functionality
+    // ----- Mobile menu -----
     menuToggle.addEventListener('click', () => {
-        body.classList.toggle('menu-open'); // Toggle class on body to show/hide menu
+        const open = document.body.classList.toggle('menu-open');
+        menuToggle.setAttribute('aria-expanded', open);
     });
+    navLinks.forEach(link => link.addEventListener('click', () => {
+        document.body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    }));
 
-    // Close menu when a link is clicked (optional, but good for user experience)
-    // This ensures the menu closes after navigating to a section
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            body.classList.remove('menu-open');
+    // ----- BibTeX toggles -----
+    document.querySelectorAll('.bib-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const bib = btn.closest('.pub-body').querySelector('.bibtex');
+            const open = bib.hidden;
+            bib.hidden = !open;
+            btn.setAttribute('aria-expanded', open);
         });
     });
+
+    // ----- Highlight current section in nav -----
+    const sections = [...navLinks]
+        .map(a => a.getAttribute('href'))
+        .filter(h => h.startsWith('#'))
+        .map(h => document.querySelector(h))
+        .filter(Boolean);
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(a => a.classList.toggle(
+                'active', a.getAttribute('href') === '#' + entry.target.id));
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    // ----- Footer year -----
+    document.getElementById('year').textContent = new Date().getFullYear();
 });
